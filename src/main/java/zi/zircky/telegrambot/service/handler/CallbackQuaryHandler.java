@@ -2,15 +2,12 @@ package zi.zircky.telegrambot.service.handler;
 
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
 import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
-import zi.zircky.telegrambot.service.managet.FeedbackManager;
-import zi.zircky.telegrambot.service.managet.HelpManager;
+import zi.zircky.telegrambot.service.managet.feedback.FeedbackManager;
+import zi.zircky.telegrambot.service.managet.help.HelpManager;
 import zi.zircky.telegrambot.telegram.Bot;
-
-import javax.security.auth.callback.CallbackHandler;
 
 import static zi.zircky.telegrambot.service.data.CallbackData.FEEDBACK;
 import static zi.zircky.telegrambot.service.data.CallbackData.HELP;
@@ -29,8 +26,8 @@ public class CallbackQuaryHandler {
   public BotApiMethod<?> answer(CallbackQuery callbackQuery, Bot bot) {
     String callbackData = callbackQuery.getData();
     return switch (callbackData) {
-      case FEEDBACK -> feedbackManager.answerCallbackQuary(callbackQuery);
-      case HELP -> helpManager.answerCallbackQuery(callbackQuery);
+      case FEEDBACK -> feedbackManager.answerCallbackQuery(callbackQuery, bot);
+      case HELP -> helpManager.answerCallbackQuery(callbackQuery, bot);
       default -> null;
     };
   }
