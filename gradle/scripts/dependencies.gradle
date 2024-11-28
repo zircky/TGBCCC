@@ -1,9 +1,13 @@
 dependencies {
-//  implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+  implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
   implementation 'org.springframework.boot:spring-boot-starter-web'
   implementation 'org.telegram:telegrambots:6.9.7.1'
+
+  implementation 'org.springframework.boot:spring-boot-starter-aop'
+  implementation 'org.hibernate.validator:hibernate-validator:9.0.0.Beta3'
+
   compileOnly 'org.projectlombok:lombok'
-//  runtimeOnly 'org.postgresql:postgresql'
+  runtimeOnly 'org.postgresql:postgresql'
   annotationProcessor 'org.projectlombok:lombok'
   testImplementation 'org.springframework.boot:spring-boot-starter-test'
   testRuntimeOnly 'org.junit.platform:junit-platform-launcher'

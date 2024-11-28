@@ -52,37 +52,6 @@ public class TimetableManager extends AbstractManager {
     };
   }
 
-
-
-  private BotApiMethod<?> mainMenu(Message message) {
-    return methodFactory.getSendMessage(
-        message.getChatId(),
-        """
-              📆 Здесь вы можете управлять вашим расписанием
-            """,
-        keyboardFactor.getInlineKeyboard(
-            List.of("Показать мое расписание", "Удалить занятия", "Добавить занятия"),
-            List.of(1, 2),
-            List.of(TIMETABLE_SHOW, TIMETABLE_REMOVE, TIMETABLE_ADD)
-        )
-    );
-  }
-
-  private BotApiMethod<?> mainMenu(CallbackQuery callbackQuery) {
-    return methodFactory.getEditeMessageText(
-        callbackQuery,
-        """
-              📆 Здесь вы можете управлять вашим расписанием
-            """,
-        keyboardFactor.getInlineKeyboard(
-            List.of("Показать мое расписание", "Удалить занятия", "Добавить занятия"),
-            List.of(1, 2),
-            List.of(TIMETABLE_SHOW, TIMETABLE_REMOVE, TIMETABLE_ADD)
-        )
-    );
-  }
-
-
   private BotApiMethod<?> show(CallbackQuery callbackQuery) {
     return methodFactory.getEditeMessageText(
         callbackQuery,
@@ -124,5 +93,34 @@ public class TimetableManager extends AbstractManager {
         )
     );
   }
+
+  private BotApiMethod<?> mainMenu(Message message) {
+    return methodFactory.getSendMessage(
+        message.getChatId(),
+        """
+              📆 Здесь вы можете управлять вашим расписанием
+            """,
+        keyboardFactor.getInlineKeyboard(
+            List.of("Показать мое расписание", "Удалить занятия", "Добавить занятия"),
+            List.of(1, 2),
+            List.of(TIMETABLE_SHOW, TIMETABLE_REMOVE, TIMETABLE_ADD)
+        )
+    );
+  }
+
+  private BotApiMethod<?> mainMenu(CallbackQuery callbackQuery) {
+    return methodFactory.getEditeMessageText(
+        callbackQuery,
+        """
+              📆 Здесь вы можете управлять вашим расписанием
+            """,
+        keyboardFactor.getInlineKeyboard(
+            List.of("Показать мое расписание", "Удалить занятия", "Добавить занятия"),
+            List.of(1, 2),
+            List.of(TIMETABLE_SHOW, TIMETABLE_REMOVE, TIMETABLE_ADD)
+        )
+    );
+  }
+
 
 }

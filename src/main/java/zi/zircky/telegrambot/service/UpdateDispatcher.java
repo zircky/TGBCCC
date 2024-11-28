@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
+import zi.zircky.telegrambot.entity.User;
+import zi.zircky.telegrambot.repository.UserRepo;
 import zi.zircky.telegrambot.service.handler.CallbackQuaryHandler;
 import zi.zircky.telegrambot.service.handler.CommandHandler;
 import zi.zircky.telegrambot.service.handler.MessageHandler;
@@ -20,12 +22,14 @@ public class UpdateDispatcher {
   final MessageHandler messageHandler;
   final CommandHandler commandHandler;
   final CallbackQuaryHandler callbackQueryHandler;
+  final UserRepo userRepo;
 
   @Autowired
-  public UpdateDispatcher(MessageHandler messageHandler, CommandHandler commandHandler, CallbackQuaryHandler callbackQueryHandler) {
+  public UpdateDispatcher(MessageHandler messageHandler, CommandHandler commandHandler, CallbackQuaryHandler callbackQueryHandler, UserRepo userRepo) {
     this.messageHandler = messageHandler;
     this.commandHandler = commandHandler;
     this.callbackQueryHandler = callbackQueryHandler;
+    this.userRepo = userRepo;
   }
 
   public BotApiMethod<?> distribute(Update update, Bot bot) {
@@ -35,6 +39,10 @@ public class UpdateDispatcher {
     if (update.hasMessage()) {
       Message message = update.getMessage();
       if (message.hasText()) {
+        userRepo.save(User.builder()
+                .chatId(message.getChatId())
+            .build());
+
         if (message.getText().charAt(0) == '/'){
           return commandHandler.answer(message, bot);
         }
