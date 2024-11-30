@@ -5,6 +5,7 @@ import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
 import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
+import zi.zircky.telegrambot.service.managet.auth.AuthManager;
 import zi.zircky.telegrambot.service.managet.feedback.FeedbackManager;
 import zi.zircky.telegrambot.service.managet.help.HelpManager;
 import zi.zircky.telegrambot.service.managet.progress_control.ProgressControlManager;
@@ -21,13 +22,15 @@ public class CallbackQuaryHandler {
   final FeedbackManager feedbackManager;
   final TimetableManager timetableManager;
   final TaskManager taskManager;
+  final AuthManager authManager;
   final ProgressControlManager progressControlManager;
 
-  public CallbackQuaryHandler(HelpManager helpManager, FeedbackManager feedbackManager, TimetableManager timetableManager, TaskManager taskManager, ProgressControlManager progressControlManager) {
+  public CallbackQuaryHandler(HelpManager helpManager, FeedbackManager feedbackManager, TimetableManager timetableManager, TaskManager taskManager, AuthManager authManager, ProgressControlManager progressControlManager) {
     this.helpManager = helpManager;
     this.feedbackManager = feedbackManager;
     this.timetableManager = timetableManager;
     this.taskManager = taskManager;
+    this.authManager = authManager;
     this.progressControlManager = progressControlManager;
   }
 
@@ -42,6 +45,9 @@ public class CallbackQuaryHandler {
     }
     if (PROGRESS.equals(keyWord)) {
       return progressControlManager.answerCallbackQuery(callbackQuery, bot);
+    }
+    if (AUTH.equals(keyWord)) {
+      return authManager.answerCallbackQuery(callbackQuery, bot);
     }
     return switch (callbackData) {
       case FEEDBACK -> feedbackManager.answerCallbackQuery(callbackQuery, bot);
