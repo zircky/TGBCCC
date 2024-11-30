@@ -68,7 +68,7 @@ public class AuthManager extends AbstractManager {
     Long chatId = callbackQuery.getMessage().getChatId();
     Integer messageId = callbackQuery.getMessage().getMessageId();
     var user = userRepo.findById(chatId).orElseThrow();
-    if (AUTH_STUDENT.equals(callbackQuery.getData())) {
+    if (AUTH_TEACHER.equals(callbackQuery.getData())) {
       user.setRole(Role.TEACHER);
     } else {
       user.setRole(Role.STUDENT);

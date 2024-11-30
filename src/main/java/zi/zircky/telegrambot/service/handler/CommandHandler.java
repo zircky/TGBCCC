@@ -9,6 +9,7 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import zi.zircky.telegrambot.service.managet.feedback.FeedbackManager;
 import zi.zircky.telegrambot.service.managet.help.HelpManager;
+import zi.zircky.telegrambot.service.managet.profile.ProfileManager;
 import zi.zircky.telegrambot.service.managet.progress_control.ProgressControlManager;
 import zi.zircky.telegrambot.service.managet.start.StartManager;
 import zi.zircky.telegrambot.service.managet.task.TaskManager;
@@ -23,15 +24,17 @@ public class CommandHandler {
   final FeedbackManager feedbackManager;
   final HelpManager helpManager;
   final StartManager startManager;
+  final ProfileManager profileManager;
   final TimetableManager timetableManager;
   final TaskManager taskManager;
   final ProgressControlManager progressControlManager;
 
   @Autowired
-  public CommandHandler(FeedbackManager feedbackManager, HelpManager helpManager, StartManager startManager, TimetableManager timetableManager, TaskManager taskManager, ProgressControlManager progressControlManager) {
+  public CommandHandler(FeedbackManager feedbackManager, HelpManager helpManager, StartManager startManager, ProfileManager profileManager, TimetableManager timetableManager, TaskManager taskManager, ProgressControlManager progressControlManager) {
     this.feedbackManager = feedbackManager;
     this.helpManager = helpManager;
     this.startManager = startManager;
+    this.profileManager = profileManager;
     this.timetableManager = timetableManager;
     this.taskManager = taskManager;
     this.progressControlManager = progressControlManager;
@@ -46,6 +49,7 @@ public class CommandHandler {
       case TIMETABLE -> timetableManager.answerCommand(message, bot);
       case TASK -> taskManager.answerCommand(message, bot);
       case PROGRESS -> progressControlManager.answerCommand(message, bot);
+      case PROFILE -> profileManager.answerCommand(message, bot);
       default -> defaultAnswer(message);
     };
   }
