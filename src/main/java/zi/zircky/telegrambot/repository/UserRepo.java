@@ -6,4 +6,7 @@ import zi.zircky.telegrambot.entity.user.User;
 
 @Repository
 public interface UserRepo extends JpaRepository<User, Long> {
+  User findUserByChatId(Long chatId);
+
+  User findUserByToken(String token);
 }

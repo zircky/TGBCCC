@@ -48,9 +48,12 @@ public class TimetableManager extends AbstractManager {
       case TIMETABLE_SHOW -> show(callbackQuery);
       case TIMETABLE_REMOVE -> remove(callbackQuery);
       case TIMETABLE_ADD -> add(callbackQuery);
+      case TIMETABLE_1, TIMETABLE_2, TIMETABLE_3, TIMETABLE_4, TIMETABLE_5, TIMETABLE_6, TIMETABLE_7 -> showDay(callbackQuery);
       default -> null;
     };
   }
+
+
 
   private BotApiMethod<?> show(CallbackQuery callbackQuery) {
     return methodFactory.getEditeMessageText(
@@ -59,9 +62,13 @@ public class TimetableManager extends AbstractManager {
               📆 Выберете день недели
             """,
         keyboardFactory.getInlineKeyboard(
-            List.of("Назад"),
-            List.of(1),
-            List.of(TIMETABLE)
+            List.of(
+                "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье",
+                "Назад"),
+            List.of(7,1),
+            List.of(
+                TIMETABLE_1, TIMETABLE_2, TIMETABLE_3, TIMETABLE_4, TIMETABLE_5, TIMETABLE_6, TIMETABLE_7,
+                TIMETABLE)
         )
     );
   }
@@ -122,5 +129,12 @@ public class TimetableManager extends AbstractManager {
     );
   }
 
+  private BotApiMethod<?> showDay(CallbackQuery callbackQuery) {
+
+    return methodFactory.getEditeMessageText(
+        callbackQuery,
+        ""
+    )
+  }
 
 }

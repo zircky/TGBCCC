@@ -11,6 +11,7 @@ import zi.zircky.telegrambot.service.managet.feedback.FeedbackManager;
 import zi.zircky.telegrambot.service.managet.help.HelpManager;
 import zi.zircky.telegrambot.service.managet.profile.ProfileManager;
 import zi.zircky.telegrambot.service.managet.progress_control.ProgressControlManager;
+import zi.zircky.telegrambot.service.managet.search.SearchManager;
 import zi.zircky.telegrambot.service.managet.start.StartManager;
 import zi.zircky.telegrambot.service.managet.task.TaskManager;
 import zi.zircky.telegrambot.service.managet.timetable.TimetableManager;
@@ -28,9 +29,10 @@ public class CommandHandler {
   final TimetableManager timetableManager;
   final TaskManager taskManager;
   final ProgressControlManager progressControlManager;
+  final SearchManager searchManager;
 
   @Autowired
-  public CommandHandler(FeedbackManager feedbackManager, HelpManager helpManager, StartManager startManager, ProfileManager profileManager, TimetableManager timetableManager, TaskManager taskManager, ProgressControlManager progressControlManager) {
+  public CommandHandler(FeedbackManager feedbackManager, HelpManager helpManager, StartManager startManager, ProfileManager profileManager, TimetableManager timetableManager, TaskManager taskManager, ProgressControlManager progressControlManager, SearchManager searchManager) {
     this.feedbackManager = feedbackManager;
     this.helpManager = helpManager;
     this.startManager = startManager;
@@ -38,6 +40,7 @@ public class CommandHandler {
     this.timetableManager = timetableManager;
     this.taskManager = taskManager;
     this.progressControlManager = progressControlManager;
+    this.searchManager = searchManager;
   }
 
   public BotApiMethod<?> answer(Message message, Bot bot) {
@@ -50,6 +53,7 @@ public class CommandHandler {
       case TASK -> taskManager.answerCommand(message, bot);
       case PROGRESS -> progressControlManager.answerCommand(message, bot);
       case PROFILE -> profileManager.answerCommand(message, bot);
+      case SEARCH -> searchManager.answerCommand(message, bot);
       default -> defaultAnswer(message);
     };
   }
